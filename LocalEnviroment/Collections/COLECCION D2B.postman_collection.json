@@ -1,0 +1,2349 @@
+{
+	"info": {
+		"_postman_id": "82976c5e-2fca-426e-8a4a-f2d4bfbfc98a",
+		"name": "COLECCION D2B",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Security Filters-TechParam",
+			"item": [
+				{
+					"name": "Routes",
+					"item": [
+						{
+							"name": "FindAll Routes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/technical-parameters/routes-scg",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"technical-parameters",
+										"routes-scg"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Route",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"Hello-World-TYR\",\n    \"predicates\": [\n        {\n            \"name\": \"Path\",\n            \"args\": {\n                \"_genkey_0\": \"/api/v1/security-filters/helloWorld\"\n            }\n        }\n    ],\n    \"filters\": [\n        {\n            \"name\": \"RewritePath\",\n            \"args\": {\n                \"regexp\": \"/api/v1/security-filters/helloWorld\",\n                \"replacement\": \"/helloWorld\"\n            }\n        }\n    ],\n    \"uri\": \"http://demo4433347.mockable.io\",\n    \"order\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/technical-parameters/routes-scg",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"technical-parameters",
+										"routes-scg"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Route",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n \"id\": \"d2b-mock\",\n \"predicates\": [\n\n {\n\n \"name\": \"Path\",\n\n \"args\": {\n\n \"_genkey_0\": \"/api/v1/security-filters/db2/mock\"\n\n }\n\n }\n\n ],\n\n \"filters\": [\n\n {\n\n \"name\": \"AuthorizationEdgeFilter\",\n\n \"args\": {\n\n \"scope\": \"D2B\"\n\n}\n\n },\n\n {\n\n \"name\": \"RewritePath\",\n\n \"args\": {\n\n \"regexp\": \"/api/v1/security-filters/db2/mock\",\n\n \"replacement\": \"/api/v1/security-filters/health\"\n\n }\n\n }\n\n ],\n\n \"uri\": \"http://localhost:8089/\",\n\n \"order\": 0\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/technical-parameters/routes-scg",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"technical-parameters",
+										"routes-scg"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Route",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/technical-parameters/routes-scg/id-route",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"technical-parameters",
+										"routes-scg",
+										"id-route"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Functional Filters",
+					"item": [
+						{
+							"name": "FindAll Functional Filters",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/technical-parameters/functional-security",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"technical-parameters",
+										"functional-security"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Functional Filter",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"FunctionalSecurityConfigTest_get32\",\r\n    \"validations\": [\r\n        {\r\n            \"headers\": {\r\n                \"content-type\": \"application/json\"\r\n            },\r\n            \"targetName\": \"https://run.mocky.io/v3/e1bdd4e6-2e78-4f04-b450-86b68d6e7522\",\r\n            \"protocol\": \"http\",\r\n            \"requestTemplate\": null,\r\n            \"name\": \"monitoring\",\r\n            \"uriParams\": {},\r\n            \"validationParameters\": {\r\n                \"method\": \"GET\",\r\n                \"errors\": \"errors\",\r\n                \"ack\": true\r\n            },\r\n            \"timeOut\": \"5000\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/technical-parameters/functional-security",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"technical-parameters",
+										"functional-security"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Functional Filter",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"FunctionalSecurityConfigTest_get32\",\r\n    \"validations\": [\r\n        {\r\n            \"headers\": {\r\n                \"content-type\": \"application/json\"\r\n            },\r\n            \"targetName\": \"https://run.mocky.io/v3/e1bdd4e6-2e78-4f04-b450-86b68d6e7522\",\r\n            \"protocol\": \"http\",\r\n            \"requestTemplate\": null,\r\n            \"name\": \"monitoring\",\r\n            \"uriParams\": {},\r\n            \"validationParameters\": {\r\n                \"method\": \"GET\",\r\n                \"errors\": \"errors\",\r\n                \"ack\": true\r\n            },\r\n            \"timeOut\": \"5040\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/technical-parameters/functional-security",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"technical-parameters",
+										"functional-security"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Functional Filter",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/technical-parameters/functional-filter-name",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"technical-parameters",
+										"functional-filter-name"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Channel_Trx",
+			"item": [
+				{
+					"name": "Channel",
+					"item": [
+						{
+							"name": "FindAll Channels",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Channel By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel/ALM",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel",
+										"ALM"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Channel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"code\": \"SVP1\",\n  \"description\": \"Sucursal viutual personas 1\",\n  \"state\": \"Active\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Channel",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"Sucursal 6\",\n    \"state\": \"Updated\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel/ALM6",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel",
+										"ALM6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Channel",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel/ALM6",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel",
+										"ALM6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "changeStateChannel",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8019/api/v1/channel-validations/channel/SVP/Updated",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8019",
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel",
+										"SVP",
+										"Updated"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ChannelState",
+					"item": [
+						{
+							"name": "FindAll Channel States",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-state",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-state"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Channel state By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-state/State451",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-state",
+										"State451"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Channel State",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"Nuevo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-state",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-state"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Channel state",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-state/Nuevo",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-state",
+										"Nuevo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Channel State",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"ABC\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-state/AXY",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-state",
+										"AXY"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Transaction",
+					"item": [
+						{
+							"name": "Find All Transaction",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/transaction",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"transaction"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Channel By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/transaction/TRS",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"transaction",
+										"TRS"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Transaction",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"code\": \"AXY\",\n  \"description\": \"Primera prueba\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/transaction",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"transaction"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Transaction",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/transaction/TRS8",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"transaction",
+										"TRS8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Transaction",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"description\": \"Transacccion actualizada 32\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/transaction/TRS2",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"transaction",
+										"TRS2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ChannelTransaction",
+					"item": [
+						{
+							"name": "Find All ChannelTransactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find ChannelTransaction By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction/ALM/TRS3",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction",
+										"ALM",
+										"TRS3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Channel Transaction",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"channelCode\": \"AXY\",\n  \"transactionCode\": \"AXY\",\n  \"state\": \"active\",\n  \"uri\": \"http://localhost:8090\",\n  \"methodHttp\": \"Method\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update ChannelTransaction",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"code\": \"SVP4\",\n  \"description\": \"Sucursal viutual Actualizada\",\n  \"state\": \"Active\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel/SVP4",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel",
+										"SVP4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete ChannelTrasaction",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"code\": \"SVP4\",\n  \"description\": \"Sucursal viutual personas 2\",\n  \"state\": \"Active\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction/ALM2/TRS2",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction",
+										"ALM2",
+										"TRS2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ChannelTrxState",
+					"item": [
+						{
+							"name": "FindAll ChannelTransaction States",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"004\",\r\n    \"description\": \"Inactive\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction-state",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction-state"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find ChannelTransaction State By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"004\",\r\n    \"description\": \"Inactive\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction-state/Active",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction-state",
+										"Active"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save ChannelTransaction State",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"State1010\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction-state",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction-state"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete ChannelTransaction State",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction-state/Nuevo",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction-state",
+										"Nuevo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update ChannelTransaction State",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"Actualizado\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-validations/channel-transaction-state/Nuevo",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-validations",
+										"channel-transaction-state",
+										"Nuevo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "getAppToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "message-id",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "session-tracker",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "authorization",
+								"value": "asd",
+								"type": "text"
+							},
+							{
+								"key": "channel",
+								"value": "BLM",
+								"type": "text"
+							},
+							{
+								"key": "application-id",
+								"value": "abc321",
+								"type": "text"
+							},
+							{
+								"key": "request-timestamp",
+								"value": "1970-01-01 00:00:01",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "10.18.140.5",
+								"type": "text"
+							},
+							{
+								"key": "user-agent",
+								"value": "{ \"device\":\"iPhone\",\"os\":\"CPU iPhone OS 13_5_1\",\"browser\":\"Version/13.1.1 Mobile/15E148 Safari/604.1\"}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "user-agent",
+								"value": "Works",
+								"type": "text"
+							},
+							{
+								"key": "device-id",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "app-version",
+								"value": "2.0",
+								"type": "text",
+								"description": "ID para trazabilidad de la transacción.Debe ser proporcionado por el front\n"
+							},
+							{
+								"key": "platform-type",
+								"value": "web",
+								"type": "text",
+								"description": "ID para trazabilidad de la sesión. Debe ser proporcionado por el front. Esta sesión hace parte del contexto de la aplicación.\n"
+							},
+							{
+								"key": "validate-captcha",
+								"value": "false",
+								"type": "text",
+								"description": "Token JWT/JWS con la información de seguridad y atributos(claims) asociados a la identidad del usuario(ClientId, ClientType,....)"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "client_secret",
+									"value": "gJ0tS4bV5pB0yO8vP2wX8bP5uD8oE3mL2sM8bY5yN6sW0yO4eH",
+									"description": "DEV",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "079a8725-b174-4340-87bc-a7eecc5d02de",
+									"description": "DEV",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "A3mB1oN7qK3kY3aF4kE7iL2vK6nR2aQ7tM2tL5hE5gU7yL3lH0",
+									"description": "QA",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "34fb95f5-b46d-4f25-916c-fcfb9a277875",
+									"description": "QA",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "Wallet-cards:read:user",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "BLM",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "219BC1C0D8CB3EF3D7B5960DBAD1154794C3B951E535CB7218A6138A261F7B1C6BA87EAD375188F81382B9D7A92E22D1BDA720CC078AFE90D97242E2764FBA452E9ADCDB624FEF222055FC42FEC6214F4527E1DC65AAAB303F60AC171A4020296186235CE2DFB1C86F8117A8BB10984BEA2D8E8390EC9AAD30790885607A8BC3896DE801B32FA4BE4C67007E3302433A5C38C131A0BB8E7E4E5B0E77ECDC194EF3F5B04CF580F58D822CE2C6F965E09488DA46002737BD0A2FF45ADCE5C35CC26376A4C67EBD9E7EFC494184C8B470E7780161D966FCAA0B59B9C32DD6EE7BCA5EFA70159870974DA04AC1B807B8A156C1F8EA471A32C6913F2A85D0CEAD6201",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "CC-1989637100",
+									"type": "text"
+								},
+								{
+									"key": "refreshToken",
+									"value": "6ceKawTWkbQa23O7w17PTDIiZJ-kPPLH",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "dsb",
+									"value": "{\n        \"dsb_malware_navegacion\": \"string\",\n        \"dsb_malware_escaneo\": \"string\",\n        \"dsb_malware_rat\": \"string\",\n        \"dsb_pharming\": \"string\",\n        \"dsb_phising\": \"string\"\n      }",
+									"type": "text"
+								},
+								{
+									"key": "user-agent",
+									"value": "ua",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/authorization-services/oauth2/token",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authorization-services",
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClientCredentialsFlow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "message-id",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "session-tracker",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "authorization",
+								"value": "asd",
+								"type": "text"
+							},
+							{
+								"key": "channel",
+								"value": "BLM",
+								"type": "text"
+							},
+							{
+								"key": "application-id",
+								"value": "abc321",
+								"type": "text"
+							},
+							{
+								"key": "request-timestamp",
+								"value": "1970-01-01 00:00:01",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "10.18.140.5",
+								"type": "text"
+							},
+							{
+								"key": "user-agent",
+								"value": "{ \"device\":\"iPhone\",\"os\":\"CPU iPhone OS 13_5_1\",\"browser\":\"Version/13.1.1 Mobile/15E148 Safari/604.1\"}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "user-agent",
+								"value": "Works!",
+								"type": "text"
+							},
+							{
+								"key": "device-id",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "app-version",
+								"value": "2.0",
+								"type": "text",
+								"description": "ID para trazabilidad de la transacción.Debe ser proporcionado por el front\n"
+							},
+							{
+								"key": "platform-type",
+								"value": "web",
+								"type": "text",
+								"description": "ID para trazabilidad de la sesión. Debe ser proporcionado por el front. Esta sesión hace parte del contexto de la aplicación.\n"
+							},
+							{
+								"key": "validate-captcha",
+								"value": "false",
+								"type": "text",
+								"description": "Token JWT/JWS con la información de seguridad y atributos(claims) asociados a la identidad del usuario(ClientId, ClientType,....)"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "34fb95f5-b46d-4f25-916c-fcfb9a277875",
+									"description": "QA",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "A3mB1oN7qK3kY3aF4kE7iL2vK6nR2aQ7tM2tL5hE5gU7yL3lH0",
+									"description": "QA",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "gJ0tS4bV5pB0yO8vP2wX8bP5uD8oE3mL2sM8bY5yN6sW0yO4eH",
+									"description": "DEV",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "client_id",
+									"value": "079a8725-b174-4340-87bc-a7eecc5d02de",
+									"description": "DEV",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "scope",
+									"value": "BLM",
+									"description": "BLM",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "scope",
+									"value": "Wallet-cards:read:user",
+									"description": "DD",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "Fabian Velez",
+									"type": "text"
+								},
+								{
+									"key": "document_type",
+									"value": "CC",
+									"type": "text"
+								},
+								{
+									"key": "document_number",
+									"value": "199999966",
+									"type": "text"
+								},
+								{
+									"key": "dsb",
+									"value": "myDsb",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/authorization-services/oauth2/token",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authorization-services",
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Introspect",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "message-id",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "session-tracker",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "channel",
+								"value": "BLM",
+								"type": "text"
+							},
+							{
+								"key": "application-id",
+								"value": "abc321",
+								"type": "text"
+							},
+							{
+								"key": "request-timestamp",
+								"value": "1970-01-01 00:00:01",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "10.18.140.5",
+								"type": "text"
+							},
+							{
+								"key": "user-agent",
+								"value": "Works!",
+								"type": "text"
+							},
+							{
+								"key": "authorization",
+								"value": "Basic MDc5YTg3MjUtYjE3NC00MzQwLTg3YmMtYTdlZWNjNWQwMmRlOmdKMHRTNGJWNXBCMHlPOHZQMndYOGJQNXVEOG9FM21MMnNNOGJZNXlONnNXMHlPNGVI",
+								"type": "text",
+								"description": "DEV",
+								"disabled": true
+							},
+							{
+								"key": "authorization",
+								"value": "Basic MzRmYjk1ZjUtYjQ2ZC00ZjI1LTkxNmMtZmNmYjlhMjc3ODc1OkEzbUIxb043cUsza1kzYUY0a0U3aUwydks2blIyYVE3dE0ydEw1aEU1Z1U3eUwzbEgw",
+								"description": "QA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJkb2N1bWVudFR5cGUiOiJDQyIsImRvY3VtZW50TnVtYmVyIjoiMTk5OTk5OTY2Iiwia2lkIjoiQVFJQ0FIaWhQOGRaZHdqU2JuclhvSGNrV0plTW52ZDZxdkhWdXl6VCtKbFh4TjZKMXdHZmZVbDhXVlJvSlVQeEJXVXVMSFVBQUFBQWZqQjhCZ2txaGtpRzl3MEJCd2FnYnpCdEFnRUFNR2dHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNUTBISm9KOTZRTHdmaWRTTkFnRVFnRHV2eVljNGFBOU1iSnR3QU43dVpDd3lISkVBZVEySmhVYVFEWUp2TWlTbmVobldxY05RM2NEUW5LTzFRMzVoa3RWYmVlXC9TbW0rXC9FQW82NXc9PSIsInNjb3BlIjoiV2FsbGV0LWNhcmRzOnJlYWQ6dXNlciIsImNoYW5uZWwiOiJCTE0iLCJleHAiOjE2MzY1NDY3MTEsImFwcGxpY2F0aW9uLWlkIjoiYWJjMzIxIiwidXNlcm5hbWUiOiJGYWJpYW4gVmVsZXoifQ.txqSsA1ep2jZRtebf5c154L-vcS1Sjm9U_BK-Wd8zRM",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/authorization-services/oauth2/introspect",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authorization-services",
+								"oauth2",
+								"introspect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modulus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "message-id",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "session-tracker",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "authorization",
+								"value": "Basic YTYyNWJjMjYtNmI4My00MmQ3LTkxMmEtYTgyZGU5ZWIxZmE4OnRFOHlMMnVGMHZDNGRWMmtFNm9ZMWNMNW9VMXNMNGdJN3VHMmJPMHZWM2hYNGxWMGZE",
+								"type": "text"
+							},
+							{
+								"key": "channel",
+								"value": "BLM",
+								"type": "text"
+							},
+							{
+								"key": "application-id",
+								"value": "abc321",
+								"type": "text"
+							},
+							{
+								"key": "request-timestamp",
+								"value": "1970-01-01 00:00:01",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "10.18.140.5",
+								"type": "text"
+							},
+							{
+								"key": "user-agent",
+								"value": "{ \"device\":\"iPhone\",\"os\":\"CPU iPhone OS 13_5_1\",\"browser\":\"Version/13.1.1 Mobile/15E148 Safari/604.1\"}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "user-agent",
+								"value": "Works!",
+								"type": "text"
+							},
+							{
+								"key": "device-id",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "app-version",
+								"value": "2.0",
+								"type": "text",
+								"description": "ID para trazabilidad de la transacción.Debe ser proporcionado por el front\n"
+							},
+							{
+								"key": "platform-type",
+								"value": "web",
+								"type": "text",
+								"description": "ID para trazabilidad de la sesión. Debe ser proporcionado por el front. Esta sesión hace parte del contexto de la aplicación.\n"
+							},
+							{
+								"key": "validate-captcha",
+								"value": "false",
+								"type": "text",
+								"description": "Token JWT/JWS con la información de seguridad y atributos(claims) asociados a la identidad del usuario(ClientId, ClientType,....)"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "client_secret",
+									"value": "gJ0tS4bV5pB0yO8vP2wX8bP5uD8oE3mL2sM8bY5yN6sW0yO4eH",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "079a8725-b174-4340-87bc-a7eecc5d02de",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "Wallet-cards:read:user",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "scope",
+									"value": "BLM",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "219BC1C0D8CB3EF3D7B5960DBAD1154794C3B951E535CB7218A6138A261F7B1C6BA87EAD375188F81382B9D7A92E22D1BDA720CC078AFE90D97242E2764FBA452E9ADCDB624FEF222055FC42FEC6214F4527E1DC65AAAB303F60AC171A4020296186235CE2DFB1C86F8117A8BB10984BEA2D8E8390EC9AAD30790885607A8BC3896DE801B32FA4BE4C67007E3302433A5C38C131A0BB8E7E4E5B0E77ECDC194EF3F5B04CF580F58D822CE2C6F965E09488DA46002737BD0A2FF45ADCE5C35CC26376A4C67EBD9E7EFC494184C8B470E7780161D966FCAA0B59B9C32DD6EE7BCA5EFA70159870974DA04AC1B807B8A156C1F8EA471A32C6913F2A85D0CEAD6201",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "CC-1989637100",
+									"type": "text"
+								},
+								{
+									"key": "refreshToken",
+									"value": "6ceKawTWkbQa23O7w17PTDIiZJ-kPPLH",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "dsb",
+									"value": "{\n        \"dsb_malware_navegacion\": \"string\",\n        \"dsb_malware_escaneo\": \"string\",\n        \"dsb_malware_rat\": \"string\",\n        \"dsb_pharming\": \"string\",\n        \"dsb_phising\": \"string\"\n      }",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/authorization-services/oauth2/keys",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authorization-services",
+								"oauth2",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBiometricAppToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "message-id",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "session-tracker",
+								"value": "e0420cc4-2f0a-4816-9208-49864b5c9e99",
+								"type": "text"
+							},
+							{
+								"key": "authorization",
+								"value": "anymessage",
+								"type": "text"
+							},
+							{
+								"key": "channel",
+								"value": "blm",
+								"type": "text"
+							},
+							{
+								"key": "application-id",
+								"value": "abc321",
+								"type": "text"
+							},
+							{
+								"key": "request-timestamp",
+								"value": "2017-02-14 19:30:59:000",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "127.0.0.2",
+								"type": "text"
+							},
+							{
+								"key": "user-agent",
+								"value": "KHtcclxuXCJkZXZpY2VcIjpcIlNNRzkyOFhCdWlsZExNWTQ3WFwiLFxyXG5cIm9zXCI6XCJBbmRyb2lkNS4xLjFcIixcclxuXCJicm93c2VyXCI6XCJDaHJvbWU0Ny4wLjI1MjYuODNNb2JpbGVTYWZhcmk1MzcuMzZcIlxyXG59KQ",
+								"type": "text"
+							},
+							{
+								"key": "device-id",
+								"value": "PC",
+								"type": "text"
+							},
+							{
+								"key": "app-version",
+								"value": "2.0.2",
+								"type": "text"
+							},
+							{
+								"key": "platform-type",
+								"value": "web",
+								"type": "text"
+							},
+							{
+								"key": "validate-captcha",
+								"value": "false",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "gJ0tS4bV5pB0yO8vP2wX8bP5uD8oE3mL2sM8bY5yN6sW0yO4eH",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "079a8725-b174-4340-87bc-a7eecc5d02de",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "BLM",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "219BC1C0D8CB3EF3D7B5960DBAD1154794C3B951E535CB7218A6138A261F7B1C6BA87EAD375188F81382B9D7A92E22D1BDA720CC078AFE90D97242E2764FBA452E9ADCDB624FEF222055FC42FEC6214F4527E1DC65AAAB303F60AC171A4020296186235CE2DFB1C86F8117A8BB10984BEA2D8E8390EC9AAD30790885607A8BC3896DE801B32FA4BE4C67007E3302433A5C38C131A0BB8E7E4E5B0E77ECDC194EF3F5B04CF580F58D822CE2C6F965E09488DA46002737BD0A2FF45ADCE5C35CC26376A4C67EBD9E7EFC494184C8B470E7780161D966FCAA0B59B9C32DD6EE7BCA5EFA70159870974DA04AC1B807B8A156C1F8EA471A32C6913F2A85D0CEAD6201",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "CC-1989637100",
+									"type": "text"
+								},
+								{
+									"key": "biometricToken",
+									"value": "AQICAHicBAT+NNQimJd9N4yJK+9gLw/a03SevniYbFOH5XXWOQFkRzMDKUFQMiuv4MssXbJFAAACdjCCAnIGCSqGSIb3DQEHBqCCAmMwggJfAgEAMIICWAYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAw8Zp9NBcFaoPaypGQCARCAggIp/sJzcr/tBl9oUjG+oSdRywzBa/mu3zE37f/2mSeaaYvQm/Ml42YGB1ZRp5Xif1TKNkylSwLi5z74omsmQWR1vn+5V6cIMTmiTyCLQmWqCzugmbeJ3izQvGtVPKSa1Dt5/aMMCUZVub3KaUPWVTEKj2aC/9+R0VI6Tdb+toLO7YcpQwBuWlEM6HeCZqHAcmVV507IUpcc2NkFXoLpT1TCDYz0sQhR88UqpvtaF6nYg+q3wl1ym81Qzas816okiItw8HsaClIKTmtjxYRis8cMLuJImRM342+ehLp9dYm3Bodelrzl+f+xZfS+Dfl2Bnds10DqeqzHTyfFCdnSFA/mhZzkTYhBs6/I0VQJj7gkdHcZEoxJ0REa+36Vy7rxXjYS7qMFVtuqcrM5+gFdwCsI2nK1XwNpbfm8H4Egoj1rTV1xx1EWtf+WsrEK6tT0H1VStVyv50rC+SpP5mxoYcJK7M0/bVPeKgd6HpFZGlT9b+69zEW+5LT2AF+kMy8W1ATQ7FrwOcUxIOBDrAMHAXOXb1+il9EcvrFrYFnWK8XCmOgqM3/SZIGyGciUJvLXR/NbvECLn1YvKJDQR4AUPnnRQrur7or2pWJESzTugFnrQCoS72Y5jkAvifGAHnHx+TMQMZoWMadhPesEIgnowlJp6FjnzaLEunrJhrt5p91sK59RzW7QSEVZTsnVl4uNCUbl+uJbR+s9JbwfKakP9zazjX7hSiKez0L/gA==",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "dsb",
+									"value": "{\n        \"dsb_malware_navegacion\": \"string\",\n        \"dsb_malware_escaneo\": \"string\",\n        \"dsb_malware_rat\": \"string\",\n        \"dsb_pharming\": \"string\",\n        \"dsb_phising\": \"string\"\n      }",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/authorization-services/oauth2/biometric/token",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authorization-services",
+								"oauth2",
+								"biometric",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Channel Management",
+			"item": [
+				{
+					"name": "Transversal Messages",
+					"item": [
+						{
+							"name": "FindAll Messages",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/transversal-message?page_limit=10&page_offset=0",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"transversal-message"
+									],
+									"query": [
+										{
+											"key": "page_limit",
+											"value": "10"
+										},
+										{
+											"key": "page_offset",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Message By Id",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/transversal-message/by?technical_code=TTT001&channel=BLM&origin=GET:/api/v1/path&id_language=1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"transversal-message",
+										"by"
+									],
+									"query": [
+										{
+											"key": "technical_code",
+											"value": "TTT001"
+										},
+										{
+											"key": "channel",
+											"value": "BLM"
+										},
+										{
+											"key": "origin",
+											"value": "GET:/api/v1/path"
+										},
+										{
+											"key": "id_language",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Message",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"technicalCode\": \"TTT001\", \r\n    \"channel\": \"BLM\",\r\n    \"origin\": \"GET:/api/v1/path\",\r\n    \"idLanguage\": 1,\r\n    \"technicalException\": \"Error in to BD\",\r\n    \"userMessage\": \"error interno desconocido\",\r\n    \"type\": \"BACK\",\r\n    \"messageType\": \"TECNICAMENTE_EXITOSO\",\r\n    \"transactionCode\": \"8900\",\r\n    \"itcHomologatedCode\": \"963\",\r\n    \"responseType\": \"ERROR\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/transversal-message/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"transversal-message",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Message",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/transversal-message/by?technical_code=TTT001&channel=BLM&origin=GET:/api/v1/path&id_language=1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"transversal-message",
+										"by"
+									],
+									"query": [
+										{
+											"key": "technical_code",
+											"value": "TTT001"
+										},
+										{
+											"key": "channel",
+											"value": "BLM"
+										},
+										{
+											"key": "origin",
+											"value": "GET:/api/v1/path"
+										},
+										{
+											"key": "id_language",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Message",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"technicalCode\": \"TTT001\",  \r\n    \"channel\": \"BLM\", \r\n    \"origin\": \"GET:/api/v1/path\", \r\n    \"idLanguage\": 1,\r\n    \"userMessage\": \"Error al momento de editar un canal\", \r\n    \"messageType\": \"EXITOSO\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/transversal-message/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"transversal-message",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Homologate Message",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/transversal-message/homologation/by?technical_code=TTT001&channel=BLM&origin=GET:/api/v1/path&id_language=1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"transversal-message",
+										"homologation",
+										"by"
+									],
+									"query": [
+										{
+											"key": "technical_code",
+											"value": "TTT001"
+										},
+										{
+											"key": "channel",
+											"value": "BLM"
+										},
+										{
+											"key": "origin",
+											"value": "GET:/api/v1/path"
+										},
+										{
+											"key": "id_language",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FindAll Unmanagaed Messages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/transversal-message/unmanaged",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"transversal-message",
+										"unmanaged"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Unmanaged Message",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"technicalCode\": \"ABC123\",  \r\n    \"channel\": \"BTC\", \r\n    \"origin\": \"BALM\", \r\n    \"idLanguage\": \"SPA\",\r\n    \"technicalException\": \"Error interno en BD\", \r\n    \"userMessage\": \"Error al momento de generar un canal\", \r\n    \"messageDescription\": \"Descripcion especifica del menjase\",\r\n    \"type\": \"PRODUCTO\", \r\n    \"messageType\": \"NO_EXITOSO\", \r\n    \"transactionCode\": \"ECH\", \r\n    \"itcHomologatedCode\": \"456\", \r\n    \"responseType\": \"SUCCESS\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/transversal-message/unmanaged",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"transversal-message",
+										"unmanaged"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Language",
+					"item": [
+						{
+							"name": "FindAll Languages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/language",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"language"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Language By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/language/ENG",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"language",
+										"ENG"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Language",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"idLanguage\": \"ES1\",\r\n    \"description\": \"Esperanto\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/language",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"language"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Language",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/language/ES1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"language",
+										"ES1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Language",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"idLanguage\": \"ES1\",\r\n    \"description\": \"English\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/language",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"language"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DocumentTypes",
+					"item": [
+						{
+							"name": "FindAll DocumentTypes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/document",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"document"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AccountTypes",
+					"item": [
+						{
+							"name": "FindAll Account Types",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "channel",
+										"value": "blm",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/account",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Parameters",
+					"item": [
+						{
+							"name": "FindAll Parameters",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/parameter?pageSize=30&pageAfter=",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"parameter"
+									],
+									"query": [
+										{
+											"key": "pageSize",
+											"value": "30"
+										},
+										{
+											"key": "pageAfter",
+											"value": ""
+										},
+										{
+											"key": "channelId",
+											"value": "pymes",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Parameter By Id",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/parameter/by?channelId=BLM&transactionCode=938&paramName=documentType",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"parameter",
+										"by"
+									],
+									"query": [
+										{
+											"key": "channelId",
+											"value": "BLM"
+										},
+										{
+											"key": "transactionCode",
+											"value": "938"
+										},
+										{
+											"key": "paramName",
+											"value": "documentType"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Parameter",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"channelId\": \"BLM\",\n    \"transactionCode\": \"531\",\n    \"paramName\": \"AccountType\",\n    \"description\": \"Marcas de cuenta a excluir Prueba update\",\n    \"enabled\": true,\n    \"appliedAction\": \"edicion\",\n    \"paramValue\": [\n        {\n            \"type\": \"AH\",\n            \"description\": \"Cuentas ahorros normal\"\n        },\n        {\n            \"type\": \"CAT\",\n            \"description\": \"Cuentas ahorros simplificada\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/parameter",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"parameter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Parameter",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"channelId\": \"BLM\",\n    \"transactionCode\": \"531\",\n    \"paramName\": \"AccountType\",\n    \"description\": \"Marcas de cuenta a excluir\",\n    \"enabled\": true,\n    \"appliedAction\": \"edicion\",\n    \"paramValue\": [\n        {\n            \"type\": \"AH\",\n            \"description\": \"Cuentas ahorros normal\"\n        },\n        {\n            \"type\": \"CAT\",\n            \"description\": \"Cuentas ahorros simplificada\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/parameter",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"parameter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Parameter",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/v1/channel-management/parameter/by?channelId=BLM&transactionCode=531&paramName=AccountType",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"channel-management",
+										"parameter",
+										"by"
+									],
+									"query": [
+										{
+											"key": "channelId",
+											"value": "BLM"
+										},
+										{
+											"key": "transactionCode",
+											"value": "531"
+										},
+										{
+											"key": "paramName",
+											"value": "AccountType"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

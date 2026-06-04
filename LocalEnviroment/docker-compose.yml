@@ -1,0 +1,72 @@
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  # For Dynamo create the following tables from the GUI on http://localhost:8010/
+  #      path -> segment <string>
+  #      route -> id <string>
+  #      functional_security -> name <string>
+  dynamodb:
+    image: instructure/dynamo-local-admin
+    container_name: dynamodb
+    ports:
+      - "8010:8000"
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    volumes:
+      - ./postgres-scripts:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=d2b
+    ports:
+      - 5432:5432
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8082:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+
+  #suamock:
+  #  build: ./mockoon
+  #  ports:
+  #    - "3000:3000"
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    ports:
+      - "4566-4599:4566-4599" # ports of the different services
+      - "9000:9000"
+    environment:
+      - SERVICES= s3, kms, secretsmanager, kinesis, sqs, rds, transcribe, stepfunctions, lambda, batch # a list of desired services you want to use.
+      - DEFAULT_REGION=us-east-1 # This is the region where your localstack mocks to be running
+      - DATA_DIR=/tmp/localstack/data
+      - PORT_WEB_UI=9000
+      - LAMBDA_EXECUTOR=local
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - START_WEB=1

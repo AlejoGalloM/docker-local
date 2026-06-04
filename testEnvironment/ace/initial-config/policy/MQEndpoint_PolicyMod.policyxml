@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policies>
+	<policy policyType="MQEndpoint" policyName="MQEndpoint_PolicyMod" policyTemplate="MQEndpoint">
+		<connection>CLIENT</connection>
+		<destinationQueueManagerName>${QMGR}</destinationQueueManagerName>
+		<queueManagerHostname>${QM_HOST}</queueManagerHostname>
+		<listenerPortNumber>${QM_PUERTO}</listenerPortNumber>
+		<channelName>${QM_CANAL}</channelName>
+		<securityIdentity/>
+		<useSSL>${QM_USESSL}</useSSL>
+		<SSLPeerName/>
+		<SSLCipherSpec>${QM_SSLCIPHER}</SSLCipherSpec>
+	</policy>
+</policies>

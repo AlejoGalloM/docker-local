@@ -1,0 +1,5 @@
+FROM ibmcom/mq:9.2.3.0-r1
+
+USER 1001
+COPY mq/qm.ini /etc/mqm/
+COPY mq/20-config.mqsc /etc/mqm/

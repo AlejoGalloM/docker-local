@@ -1,0 +1,27 @@
+************************************************
+Adecuación Ambiente Local Channel Trx
+************************************************
+
+1. Clonar repo de security services
+    https://grupobancolombia.visualstudio.com/Vicepresidencia%20Servicios%20de%20Tecnolog%C3%ADa/_git/NU0051001_Security_Services_MR
+
+2. Descargar los recursos para adecuación de ambiente, posicionarse en estos resources y ejecutar el docker compose
+    docker compose up
+
+3. Descargar el script para creación de BD (ruta /Scripts/script_sql_channel.sql)
+    Conectar a la BD Postgres con DBeaver y ejecutar el script para crear las tablas de postgres (la BD es D2B)
+
+4. Crear los secretos para Rabbit, Postgress (Se ejecutan los siguientes comandos, parados en la carpeta de los secretos)
+    aws --endpoint-url=http://localhost:4566 secretsmanager create-secret --name nu0051001-digital-distribution-local-sm-security-services-rabbitmq --description "Secret for RabbitMQ" --secret-string "file://rabbitmq.json"
+    
+    aws --endpoint-url=http://localhost:4566 secretsmanager create-secret --name nu0051001-digital-distribution-local-sm-channel-validations-postgres --description "Secret for channel validations" --secret-string "file://channel-validations-postgres.json"
+
+5. Consultamos los secrets
+aws --endpoint-url=http://localhost:4566 secretsmanager list-secrets
+
+6. Configurar la variable de entorno del log4J a nivel INFO en el proyecto
+LOG4J_LEVEL=INFO
+
+7. Abrir el proyecto recordar que debe ser con vpn para descargar dependencias
+
+8. Correr el proyecto y con postman enviar las peticiones

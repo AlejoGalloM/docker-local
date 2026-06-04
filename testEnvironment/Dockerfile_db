@@ -1,0 +1,3 @@
+FROM ${DB_RESGISTRY}
+
+COPY /db/scripts /opt/oracle/scripts/startup

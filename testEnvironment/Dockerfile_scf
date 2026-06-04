@@ -1,0 +1,6 @@
+FROM ${scf_base_img}
+LABEL version="${Build.BuildNumber}"  description=""
+COPY scf/${APPLICATION_JAR} app.jar
+USER ${scf_image_user}
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS  -jar app.jar" ]
+

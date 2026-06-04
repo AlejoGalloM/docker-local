@@ -1,0 +1,158 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.2 (Debian 12.2-2.pgdg100+1)
+-- Dumped by pg_dump version 13.0
+
+-- Started on 2020-11-24 16:16:58
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 9 (class 2615 OID 16385)
+-- Name: auth; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA auth;
+
+
+ALTER SCHEMA auth OWNER TO postgres;
+
+--
+-- TOC entry 6 (class 2615 OID 16414)
+-- Name: channeltrx; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+--
+-- TOC entry 207 (class 1259 OID 16404)
+-- Name: authentication; Type: TABLE; Schema: auth; Owner: postgres
+--
+
+CREATE TABLE auth.authentication (
+    id bigint NOT NULL,
+    user_name character varying(256),
+    channel_id character varying(256),
+    application_id character varying(256),
+    authentication_time timestamp with time zone,
+    authentication_ip character varying(256),
+    authentication_device character varying(256),
+    access_token character varying(4096),
+    refresh_token character varying(256)
+);
+
+
+ALTER TABLE auth.authentication OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 16402)
+-- Name: authentication_id_seq; Type: SEQUENCE; Schema: auth; Owner: postgres
+--
+
+CREATE SEQUENCE auth.authentication_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth.authentication_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2967 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: authentication_id_seq; Type: SEQUENCE OWNED BY; Schema: auth; Owner: postgres
+--
+
+ALTER SEQUENCE auth.authentication_id_seq OWNED BY auth.authentication.id;
+
+
+--
+-- TOC entry 204 (class 1259 OID 16386)
+-- Name: oauth_client_details; Type: TABLE; Schema: auth; Owner: postgres
+--
+
+CREATE TABLE auth.oauth_client_details (
+    client_id character varying(256) NOT NULL,
+    resource_ids character varying(256),
+    client_secret character varying(256),
+    scope character varying(256),
+    authorized_grant_types character varying(256),
+    web_server_redirect_uri character varying(256),
+    authorities character varying(256),
+    access_token_validity integer,
+    refresh_token_validity integer,
+    additional_information character varying(4096),
+    auto_approve character varying(256),
+    simultaneous_session character varying(256)
+);
+
+
+ALTER TABLE auth.oauth_client_details OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 16394)
+-- Name: oauth_refresh_token; Type: TABLE; Schema: auth; Owner: postgres
+--
+
+CREATE TABLE auth.oauth_refresh_token (
+    token character varying(256) NOT NULL,
+    user_name character varying(256),
+    client_id character varying(256)
+);
+
+
+ALTER TABLE auth.oauth_refresh_token OWNER TO postgres;
+
+
+ALTER TABLE ONLY auth.authentication ALTER COLUMN id SET DEFAULT nextval('auth.authentication_id_seq'::regclass);
+
+
+--
+-- TOC entry 2820 (class 2606 OID 16412)
+-- Name: authentication authentication_pkey; Type: CONSTRAINT; Schema: auth; Owner: postgres
+--
+
+ALTER TABLE ONLY auth.authentication
+    ADD CONSTRAINT authentication_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2816 (class 2606 OID 16393)
+-- Name: oauth_client_details oauth_client_details_pkey; Type: CONSTRAINT; Schema: auth; Owner: postgres
+--
+
+ALTER TABLE ONLY auth.oauth_client_details
+    ADD CONSTRAINT oauth_client_details_pkey PRIMARY KEY (client_id);
+
+
+--
+-- TOC entry 2818 (class 2606 OID 16401)
+-- Name: oauth_refresh_token oauth_refresh_token_pkey; Type: CONSTRAINT; Schema: auth; Owner: postgres
+--
+
+ALTER TABLE ONLY auth.oauth_refresh_token
+    ADD CONSTRAINT oauth_refresh_token_pkey PRIMARY KEY (token);
+
+
+
+
+
+--
+-- TOC entry 2821 (class 1259 OID 16413)
+-- Name: authentication_uk; Type: INDEX; Schema: auth; Owner: postgres
+--
+
+CREATE UNIQUE INDEX authentication_uk ON auth.authentication USING btree (user_name, channel_id);
+
+

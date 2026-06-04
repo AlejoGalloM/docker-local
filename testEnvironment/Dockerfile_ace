@@ -1,0 +1,24 @@
+FROM ${IMAGES_ACE_MQ}
+
+USER root
+
+COPY --chown=1001 ace/initial-config /home/aceuser/initial-config
+COPY ace/bars/*.bar /tmp
+COPY --chown=1001 ace/sh_config/*.sh /usr/local/bin
+COPY --chown=1001 *.ini /home/aceuser/ace-server
+
+RUN export LICENSE=accept &&\
+    ace_config_policy.sh && \
+    ace_config_setdbparms.sh && \
+    rm -R /home/aceuser/initial-config/policy && \
+	chmod -R 755 /usr/local/bin
+USER 0
+
+RUN export LICENSE=accept \
+    && initialconf -env=${ACE_ENV} -optimize=false \
+    && chmod -R ugo+rwx /home/aceuser/
+USER 1001
+ENTRYPOINT [ "bash", "-c", "runserver"]
+
+
+
