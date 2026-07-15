@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: 'kafka-local'
+    static_configs:
+      - targets: ['kafka:7071']
+  - job_name: 'kafka-strimzi'
+    static_configs:
+      - targets: ['kafka-strimzi:7072']

@@ -1,0 +1,13 @@
+clusters:
+  - id: "local"
+    name: "Local Kafka"
+    bootstrapServers: "kafka:9092"
+    metrics:
+      prometheus:
+        url: "http://prometheus:9090"
+  - id: "strimzi-mock"
+    name: "Strimzi Mock"
+    bootstrapServers: "kafka-strimzi:9097"
+    metrics:
+      prometheus:
+        url: "http://prometheus:9090"

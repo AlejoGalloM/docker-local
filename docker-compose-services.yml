@@ -11,8 +11,10 @@ services:
     ports:
       - "9092:9092"
       - "9094:9094"
+      - "7071:7071"
     environment:
       KAFKA_HEAP_OPTS: "-Xmx512M -Xms512M"
+      KAFKA_OPTS: "-javaagent:/opt/jmx-exporter/jmx_prometheus_javaagent.jar=7071:/opt/jmx-exporter/kafka-jmx.yml"
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093,PLAINTEXT_HOST://0.0.0.0:9094
@@ -27,6 +29,8 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+    volumes:
+      - ./jmx-exporter:/opt/jmx-exporter:ro
     networks:
       - shared-network
     healthcheck:
@@ -68,21 +72,137 @@ services:
       - shared-network
     restart: "no"
 
-  kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    container_name: kafka-ui
+  conduktor-console:
+    image: conduktor/conduktor-console:1.36.2
+    container_name: conduktor-console
     platform: linux/arm64
     depends_on:
       kafka:
         condition: service_healthy
+      kafka-strimzi:
+        condition: service_healthy
+      postgres:
+        condition: service_started
     ports:
-      - "9091:8080"
+      - "9091:8080" # Se accede a través de localhost:9091
     environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-      DYNAMIC_CONFIG_ENABLED: "true"
+      CDK_ORG_NAME: "default"
+      CDK_DATABASE_URL: "postgresql://postgres:admin@postgres:5432/d2b"
+      CDK_IN_CONF_FILE: "/opt/conduktor/platform-config.yaml"
+      JAVA_OPTS: "-Xmx1g -Xms512m"
+    volumes:
+      - ./conduktor-clusters.yaml:/opt/conduktor/platform-config.yaml:ro
     networks:
       - shared-network
+
+  # ============================================
+  # Kafka Strimzi Mock (KRaft + SASL_SSL)
+  # ============================================
+  zookeeper-strimzi:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper-strimzi
+    platform: linux/arm64
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_AUTH_PROVIDER_SASL: org.apache.zookeeper.server.auth.SASLAuthenticationProvider
+      KAFKA_OPTS: >-
+        -Djava.security.auth.login.config=/etc/kafka/secrets/zookeeper_jaas.conf
+    ports:
+      - "2182:2181"
+    volumes:
+      - ./kafka-strimzi-mock/kafka-secrets:/etc/kafka/secrets:ro
+    networks:
+      - shared-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "2181"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  kafka-strimzi:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka-strimzi
+    platform: linux/arm64
+    depends_on:
+      zookeeper-strimzi:
+        condition: service_healthy
+    ports:
+      - "9095:9095"
+      - "9097:9097"
+      - "7072:7072"
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-strimzi:2181
+      KAFKA_LISTENERS: SASL_SSL://0.0.0.0:9095,PLAINTEXT://0.0.0.0:9097
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: SASL_SSL:SASL_SSL,PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: SASL_SSL://localhost:9095,PLAINTEXT://kafka-strimzi:9097
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_SASL_ENABLED_MECHANISMS: SCRAM-SHA-512
+      KAFKA_SSL_KEYSTORE_FILENAME: kafka.keystore.jks
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: ssl_keystore_password
+      KAFKA_SSL_KEY_CREDENTIALS: ssl_key_password
+      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: ssl_truststore_password
+      KAFKA_SSL_CLIENT_AUTH: none
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_HEAP_OPTS: "-Xmx512M -Xms512M"
+      KAFKA_ZOOKEEPER_SASL_ENABLED: "true"
+      KAFKA_OPTS: >-
+        -Djava.security.auth.login.config=/etc/kafka/secrets/kafka_server_jaas.conf
+        -javaagent:/opt/jmx-exporter/jmx_prometheus_javaagent.jar=7072:/opt/jmx-exporter/kafka-jmx.yml
+      KAFKA_CUB_ZK_TIMEOUT: "60"
+    volumes:
+      - ./kafka-strimzi-mock/kafka-secrets:/etc/kafka/secrets:ro
+      - ./jmx-exporter:/opt/jmx-exporter:ro
+    networks:
+      - shared-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "KAFKA_OPTS=\"\" kafka-broker-api-versions --bootstrap-server localhost:9097 || exit 1"]
+      interval: 15s
+      timeout: 15s
+      retries: 8
+      start_period: 90s
+
+  kafka-strimzi-init:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka-strimzi-init
+    platform: linux/arm64
+    depends_on:
+      kafka-strimzi:
+        condition: service_healthy
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        echo 'Esperando a que Kafka esté completamente disponible...'
+        sleep 5
+        echo 'Creando usuario SCRAM-SHA-512...'
+        kafka-configs --bootstrap-server kafka-strimzi:9097 --alter --add-config 'SCRAM-SHA-512=[password=local-password]' --entity-type users --entity-name local-user
+        echo 'Creando topicos...'
+        kafka-topics --create --if-not-exists --bootstrap-server kafka-strimzi:9097 --topic test-with-registries --partitions 1 --replication-factor 1
+        kafka-topics --create --if-not-exists --bootstrap-server kafka-strimzi:9097 --topic debtSecuritiesInitialCapitalization.debtCapitalOpenedv1 --partitions 1 --replication-factor 1
+        kafka-topics --create --if-not-exists --bootstrap-server kafka-strimzi:9097 --topic debtSecuritiesInterest.interestAccruedv1 --partitions 1 --replication-factor 1
+        kafka-topics --create --if-not-exists --bootstrap-server kafka-strimzi:9097 --topic debtSecuritiesInterest.interestSettledv --partitions 1 --replication-factor 1
+        kafka-topics --create --if-not-exists --bootstrap-server kafka-strimzi:9097 --topic debtSecuritiesInterest.interestPaidv1 --partitions 1 --replication-factor 1
+        kafka-topics --create --if-not-exists --bootstrap-server kafka-strimzi:9097 --topic paymentConfirmation.maturityPaymentConfirmedv1 --partitions 1 --replication-factor 1
+        kafka-topics --create --if-not-exists --bootstrap-server kafka-strimzi:9097 --topic debtSecuritiesBondIssueRegistration.bondIssueRegisteredv1 --partitions 1 --replication-factor 1
+        echo 'Topicos disponibles:'
+        kafka-topics --list --bootstrap-server kafka-strimzi:9097
+        echo 'Kafka Strimzi Mock inicializado correctamente'
+        echo 'SASL_SSL listener -> localhost:9095'
+        echo 'User: local-user / Pass: local-password'
+        echo 'Topic: test-with-registries'
+    networks:
+      - shared-network
+    restart: on-failure
 
   # ============================================
   # Message Brokers & Caching
@@ -164,7 +284,7 @@ services:
   # AWS LocalStack
   # ============================================
   localstack:
-    image: localstack/localstack:latest
+    image: localstack/localstack:0.14.2
     container_name: localstack
     platform: linux/arm64
     ports:
@@ -191,8 +311,19 @@ services:
       MH_STORAGE: "memory"
 
   mqnu0145001_iastacceleratorgateway_mr:
+    build:
+      context: ./mq-container-master
+      dockerfile: Dockerfile-server
+      target: mq-dev-server
+      args:
+        MQ_ARCHIVE: downloads/9.4.4.0-IBM-MQ-Advanced-for-Developers-Non-Install-LinuxARM64.tar.gz
+        IMAGE_TAG: ibm-mqadvanced-server-dev:9.4.4.0-arm64
+        IMAGE_SOURCE: local
+        IMAGE_REVISION: local
+        SKIP_TESTS: "true"
     image: ibm-mqadvanced-server-dev:9.4.4.0-arm64
     container_name: mqnu0145001_iastacceleratorgateway_mr_new
+    platform: linux/arm64
     healthcheck:
       test: ["CMD", "bash", "-c", "echo -n '' > /dev/tcp/127.0.0.1/1414"]
       interval: 15s
@@ -213,8 +344,19 @@ services:
     restart: unless-stopped
 
   mqnu0145001_iastacceleratorgateway_mr2:
+    build:
+      context: ./mq-container-master
+      dockerfile: Dockerfile-server
+      target: mq-dev-server
+      args:
+        MQ_ARCHIVE: downloads/9.4.4.0-IBM-MQ-Advanced-for-Developers-Non-Install-LinuxARM64.tar.gz
+        IMAGE_TAG: ibm-mqadvanced-server-dev:9.4.4.0-arm64
+        IMAGE_SOURCE: local
+        IMAGE_REVISION: local
+        SKIP_TESTS: "true"
     image: ibm-mqadvanced-server-dev:9.4.4.0-arm64
     container_name: mqnu0145001_iastacceleratorgateway_mr2_new
+    platform: linux/arm64
     healthcheck:
       test: ["CMD", "bash", "-c", "echo -n '' > /dev/tcp/127.0.0.1/1414"]
       interval: 30s
@@ -239,7 +381,7 @@ services:
     restart: unless-stopped
 
   gonu0145001_iastacceleratorgateway_mr:
-    platform: linux/arm64
+    platform: linux/amd64
     image: gonu0145001_iastacceleratorgateway_mr:test
     pull_policy: never
     container_name: gonu0145001_iastacceleratorgateway_mr_new
@@ -270,6 +412,16 @@ services:
       - ./sftp_keys:/home/sftpuser/.ssh/keys:ro
       - ./sftp_data:/home/sftpuser/upload
     command: sftpuser::1001
+    networks:
+      - shared-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - shared-network
 
