@@ -81,12 +81,26 @@ def build_producer(cert_pem: Path):
 def stamp_message(payload: dict) -> dict:
     if "metadata" in payload:
         payload["metadata"]["id"] = str(uuid.uuid4())
+        
+    if "data" in payload:
+        data = payload["data"]
+        # Actualizar transaction.identification si existe
+        if "transaction" in data and "identification" in data["transaction"]:
+            data["transaction"]["identification"] = str(uuid.uuid4())
+            
+        # Actualizar emissionId si existe
+        if "securityIssuanceRequest" in data:
+            try:
+                data["securityIssuanceRequest"]["security"]["financialInstrumentIdentification"]["emissionId"] = f"EMISION_{uuid.uuid4().hex[:8].upper()}"
+            except KeyError:
+                pass
+
     return payload
 
 def main():
     parser = argparse.ArgumentParser(description="Envía un flujo constante de eventos para medir Consume Rate")
-    parser.add_argument("--rate", type=int, default=500, help="Eventos por segundo")
-    parser.add_argument("--duration", type=int, default=90, help="Duración de la prueba en segundos")
+    parser.add_argument("--rate", type=int, default=10, help="Eventos por segundo")
+    parser.add_argument("--duration", type=int, default=10, help="Duración de la prueba en segundos")
     args = parser.parse_args()
 
     # Cargar todos los payloads en memoria
