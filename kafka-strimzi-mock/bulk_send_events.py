@@ -99,7 +99,7 @@ def stamp_message(payload: dict) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="Envía un flujo constante de eventos para medir Consume Rate")
-    parser.add_argument("--rate", type=int, default=10, help="Eventos por segundo")
+    parser.add_argument("--rate", type=int, default=1, help="Eventos por segundo")
     parser.add_argument("--duration", type=int, default=10, help="Duración de la prueba en segundos")
     args = parser.parse_args()
 
