@@ -176,7 +176,7 @@ $DOCKER_COMPOSE_CMD -f docker-compose-services.yml up -d \
 echo "Esperando a que Kafka esté disponible (máx 120s)..."
 KAFKA_READY="false"
 for i in $(seq 1 60); do
-  if docker exec kafka-strimzi kafka-broker-api-versions \
+  if docker exec kafka-strimzi env KAFKA_OPTS="" kafka-broker-api-versions \
        --bootstrap-server localhost:9097 >/dev/null 2>&1; then
     echo "  ✅ Kafka disponible en el intento $i"
     KAFKA_READY="true"
@@ -214,8 +214,8 @@ cert = open("$KAFKA_SECRETS_DIR/kafka.truststore.jks.pem", "r").read() if False 
 secret = {
     "username": "$KAFKA_USER",
     "password": "$KAFKA_PASS",
-    "bootstrapServer": "localhost:9095",
-    "certificate": cert.strip()
+    "bootstrapserver": "localhost:9095",
+    "certificate.cer": cert.strip()
 }
 print(json.dumps(secret))
 PYEOF

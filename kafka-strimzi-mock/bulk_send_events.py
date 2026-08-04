@@ -27,13 +27,13 @@ TRUSTSTORE_PATH  = Path(__file__).parent / "kafka-secrets" / "kafka.truststore.j
 CERT_PEM_PATH    = Path(__file__).parent / "kafka-secrets" / "ca.pem"
 
 EVENT_MAPPING = {
-    "Emision.json": ["debtSecuritiesBondIssueRegistration.bondIssueRegisteredv1"],
-    "LiquidacionApertura.json": ["debtSecuritiesInitialCapitalization.debtCapitalOpenedv1"],
-    "CausacionIntereses.json": ["debtSecuritiesInterest.interestAccruedv1"],
-    "ExigibilidadIntereses.json": ["debtSecuritiesInterest.interestSettledv"],
-    "PagoIntereses.json": ["debtSecuritiesInterest.interestPaidv1"],
-    "ConfirmacionPagoIntereses.json": ["paymentConfirmation.maturityPaymentConfirmedv1"],
-    "Vencimiento.json": ["paymentConfirmation.maturityPaymentConfirmedv1"],
+    "Emision.json": ["debtSecuritiesbondissueregistration.bondissueregisteredv1"],
+    "LiquidacionApertura.json": ["debtsecuritiesinitialcapitalization.debtcapitalopenedv1"],
+    "CausacionIntereses.json": ["debtsecuritiesinterest.interestaccruedv1"],
+    "ExigibilidadIntereses.json": ["debtsecuritiesinterest.interestsettledv"],
+    "PagoIntereses.json": ["debtsecuritiesinterest.interestpaidv1"],
+    "ConfirmacionPagoIntereses.json": ["paymentconfirmation.maturitypaymentconfirmedv1"],
+    "Vencimiento.json": ["paymentconfirmation.maturitypaymentconfirmedv1"],
 }
 
 EXAMPLES_DIR = Path(__file__).parent / "EjemplosJson"
@@ -99,7 +99,7 @@ def stamp_message(payload: dict) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="Envía un flujo constante de eventos para medir Consume Rate")
-    parser.add_argument("--rate", type=int, default=1, help="Eventos por segundo")
+    parser.add_argument("--rate", type=int, default=100, help="Eventos por segundo")
     parser.add_argument("--duration", type=int, default=10, help="Duración de la prueba en segundos")
     args = parser.parse_args()
 

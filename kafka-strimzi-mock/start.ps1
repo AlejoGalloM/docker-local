@@ -178,8 +178,8 @@ $certContentStr = $certContent -join "`n"
 $secretObj = @{
     username = $KAFKA_USER
     password = $KAFKA_PASS
-    bootstrapServer = "localhost:9095"
-    certificate = $certContentStr.Trim()
+    bootstrapserver = "localhost:9095"
+    "certificate.cer" = $certContentStr.Trim()
 }
 $SECRET_JSON = $secretObj | ConvertTo-Json -Depth 10 -Compress
 
