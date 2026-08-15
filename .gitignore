@@ -1,0 +1,25 @@
+# Directorios de datos y persistencia de contenedores
+# Ignoramos todo lo que termine en _data para cubrir bd, floci, localstack, sftp, etc.
+*_data/
+
+# Archivos ocultos del sistema
+.DS_Store
+*.swp
+*~
+
+# IDEs y Editores de código
+.idea/
+*.iml
+.vscode/
+
+# Configuración local que podría contener secretos (Opcional, si tienes secretos reales aquí)
+# Si tus scripts usan .env para inyectar variables, a veces conviene ignorarlo.
+# .env
+
+# Otros posibles archivos basura locales
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Llaves privadas/publicas generadas localmente
+*rsa*

@@ -27,10 +27,10 @@ TRUSTSTORE_PATH  = Path(__file__).parent / "kafka-secrets" / "kafka.truststore.j
 CERT_PEM_PATH    = Path(__file__).parent / "kafka-secrets" / "ca.pem"
 
 EVENT_MAPPING = {
-    "Emision.json": ["debtSecuritiesbondissueregistration.bondissueregisteredv1"],
+    "Emision.json": ["debtsecuritiesbondissueregistration.bondissueregisteredv1"],
     "LiquidacionApertura.json": ["debtsecuritiesinitialcapitalization.debtcapitalopenedv1"],
     "CausacionIntereses.json": ["debtsecuritiesinterest.interestaccruedv1"],
-    "ExigibilidadIntereses.json": ["debtsecuritiesinterest.interestsettledv"],
+    "ExigibilidadIntereses.json": ["debtsecuritiesinterest.interestsettledv1"],
     "PagoIntereses.json": ["debtsecuritiesinterest.interestpaidv1"],
     "ConfirmacionPagoIntereses.json": ["paymentconfirmation.maturitypaymentconfirmedv1"],
     "Vencimiento.json": ["paymentconfirmation.maturitypaymentconfirmedv1"],
@@ -84,6 +84,10 @@ def stamp_message(payload: dict) -> dict:
         
     if "data" in payload:
         data = payload["data"]
+        # Actualizar groupHeader.messageIdentification si existe
+        if "groupHeader" in data and "messageIdentification" in data["groupHeader"]:
+            data["groupHeader"]["messageIdentification"] = str(uuid.uuid4())
+            
         # Actualizar transaction.identification si existe
         if "transaction" in data and "identification" in data["transaction"]:
             data["transaction"]["identification"] = str(uuid.uuid4())
@@ -99,8 +103,8 @@ def stamp_message(payload: dict) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="Envía un flujo constante de eventos para medir Consume Rate")
-    parser.add_argument("--rate", type=int, default=100, help="Eventos por segundo")
-    parser.add_argument("--duration", type=int, default=10, help="Duración de la prueba en segundos")
+    parser.add_argument("--rate", type=int, default=50, help="Eventos por segundo")
+    parser.add_argument("--duration", type=int, default=30, help="Duración de la prueba en segundos")
     args = parser.parse_args()
 
     # Cargar todos los payloads en memoria
@@ -134,6 +138,9 @@ def main():
     producer = build_producer(cert_pem)
 
     total_sent = 0
+    total_duplicates = 0
+    total_errors_sent = 0
+    original_events_sent = 0
     start_time = time.time()
     end_time = start_time + args.duration
     sleep_interval = 1.0 / args.rate
@@ -149,10 +156,28 @@ def main():
             
             producer.send(topic, key=msg_id, value=stamped)
             total_sent += 1
+            original_events_sent += 1
             
-            # Imprimir progreso cada 100 mensajes
-            if total_sent % 100 == 0:
-                print(f"  -> {total_sent} eventos enviados...")
+            # Cada 50 eventos originales, enviar entre 1 y 5 repetidos
+            if original_events_sent % 50 == 0:
+                duplicates_to_send = random.randint(1, 5)
+                for _ in range(duplicates_to_send):
+                    producer.send(topic, key=msg_id, value=stamped)
+                    total_sent += 1
+                    total_duplicates += 1
+                    
+            # Cada 100 eventos originales, enviar uno malo (sin metadata)
+            if original_events_sent % 100 == 0:
+                bad_payload = copy.deepcopy(stamped)
+                if "metadata" in bad_payload:
+                    del bad_payload["metadata"]
+                producer.send(topic, key="error-no-metadata", value=bad_payload)
+                total_sent += 1
+                total_errors_sent += 1
+            
+            # Imprimir progreso cada 100 mensajes originales
+            if original_events_sent % 100 == 0:
+                print(f"  -> {total_sent} eventos enviados (incluyendo duplicados y errores)...")
                 
             # Mantener la tasa constante
             elapsed = time.time() - loop_start
@@ -170,6 +195,9 @@ def main():
     print("=" * 60)
     print(f"  ✅ Prueba terminada")
     print(f"  Total Enviados : {total_sent}")
+    print(f"  Total Originales: {original_events_sent}")
+    print(f"  Total Repetidos: {total_duplicates}")
+    print(f"  Total Errores  : {total_errors_sent}")
     print(f"  Tiempo Real    : {actual_duration:.2f} segundos")
     print(f"  Rate Promedio  : {total_sent / actual_duration:.2f} msg/seg")
     print("=" * 60)

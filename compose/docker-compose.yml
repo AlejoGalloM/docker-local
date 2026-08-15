@@ -1,0 +1,14 @@
+version: "3.8"
+
+include:
+  - compose-db.yml
+  - compose-kafka.yml
+  - compose-aws.yml
+  - compose-mq.yml
+  - compose-tools.yml
+
+networks:
+  shared-network:
+    driver: bridge
+  scf_mqnu0145001_iastacceleratorgateway_mr:
+    driver: bridge

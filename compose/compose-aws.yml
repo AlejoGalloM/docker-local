@@ -1,0 +1,52 @@
+version: "3.8"
+name: "d2b-aws"
+services:
+#  localstack:
+#    image: localstack/localstack:3.8.1
+#    container_name: localstack
+#    platform: linux/arm64
+#    ports:
+#      - "4567:4566"         # LocalStack en el puerto 4567
+#      - "4510-4560:4510-4560" # Puertos para lambdas/servicios auxiliares
+#    environment:
+#      - SERVICES=s3,kms,secretsmanager,kinesis,sqs,rds,transcribe,stepfunctions,lambda,batch,sns
+#      - AWS_DEFAULT_REGION=us-east-1
+#      - LAMBDA_EXECUTOR=local
+#      - DOCKER_HOST=unix:///var/run/docker.sock
+#      - PERSISTENCE=1
+#    volumes:
+#      - ../localstack_data:/var/lib/localstack
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    networks:
+#      - shared-network
+
+  floci:
+    image: floci/floci:latest
+    container_name: floci
+    platform: linux/arm64
+    ports:
+      - "4566:4566"
+    environment:
+      - FLOCI_STORAGE_MODE=hybrid
+    volumes:
+      - ../floci_data:/var/lib/floci
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - shared-network
+
+  floci-ui:
+    image: floci/floci-ui:latest
+    container_name: floci-ui
+    platform: linux/arm64
+    ports:
+      - "4500:4500"
+    environment:
+      - FLOCI_ENDPOINT=http://floci:4566
+    depends_on:
+      - floci
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    name: d2b-shared-network

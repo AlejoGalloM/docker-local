@@ -1,0 +1,71 @@
+version: "3.8"
+name: "d2b-database"
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    platform: linux/arm64
+    ports:
+      - "6379:6379"
+    networks:
+      - shared-network
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    platform: linux/amd64
+    volumes:
+      - ../LocalEnviroment/postgres-scripts:/docker-entrypoint-initdb.d
+      - ../postgres_data:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=d2b
+      - TZ=America/Bogota
+    ports:
+      - "5432:5432"
+    networks:
+      - shared-network
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    platform: linux/arm64
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
+    networks:
+      - shared-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    platform: linux/arm64
+    depends_on:
+      - mongo
+    ports:
+      - "8082:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_SERVER: mongo
+    networks:
+      - shared-network
+
+  dynamodb:
+    image: instructure/dynamo-local-admin
+    container_name: dynamodb
+    platform: linux/arm64
+    ports:
+      - "8010:8000"
+    volumes:
+      - ../dynamodb_data:/var/lib/dynamodb
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    name: d2b-shared-network
