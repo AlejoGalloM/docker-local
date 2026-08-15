@@ -3,9 +3,8 @@ name: "d2b-kafka"
 
 services:
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.7.11
     container_name: kafka
-    platform: linux/amd64
     ports:
       - "9092:9092"
       - "9094:9094"
@@ -39,9 +38,8 @@ services:
       start_period: 120s
 
   kafka-init:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.7.11
     container_name: kafka-init
-    platform: linux/amd64
     depends_on:
       kafka:
         condition: service_healthy
@@ -92,7 +90,6 @@ services:
   conduktor-console:
     image: conduktor/conduktor-console:1.36.2
     container_name: conduktor-console
-    platform: linux/amd64
     depends_on:
       kafka:
         condition: service_healthy
@@ -114,9 +111,8 @@ services:
     restart: on-failure
 
   zookeeper-strimzi:
-    image: confluentinc/cp-zookeeper:7.5.0
+    image: confluentinc/cp-zookeeper:7.7.11
     container_name: zookeeper-strimzi
-    platform: linux/amd64
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -138,9 +134,8 @@ services:
       start_period: 30s
 
   kafka-strimzi:
-    image: confluentinc/cp-kafka:7.5.0
+    image: confluentinc/cp-kafka:7.7.11
     container_name: kafka-strimzi
-    platform: linux/amd64
     depends_on:
       zookeeper-strimzi:
         condition: service_healthy
@@ -191,3 +186,4 @@ services:
 networks:
   shared-network:
     name: d2b-shared-network
+    external: true

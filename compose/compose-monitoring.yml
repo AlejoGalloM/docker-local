@@ -3,7 +3,7 @@ name: "d2b-monitoring"
 
 services:
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3
     container_name: prometheus
     ports:
       - "9090:9090"
@@ -14,9 +14,8 @@ services:
     restart: unless-stopped
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:13.1
     container_name: grafana
-    platform: linux/amd64
     ports:
       - "3000:3000"
     environment:
@@ -30,9 +29,8 @@ services:
     restart: unless-stopped
 
   jaeger:
-    image: jaegertracing/all-in-one:latest
+    image: jaegertracing/all-in-one:1.76.0
     container_name: jaeger
-    platform: linux/amd64
     ports:
       - "16686:16686"
       - "4317:4317"
@@ -46,3 +44,4 @@ services:
 networks:
   shared-network:
     name: d2b-shared-network
+    external: true

@@ -72,7 +72,6 @@ services:
     restart: unless-stopped
 
   gonu0145001_iastacceleratorgateway_mr:
-    platform: linux/amd64
     image: gonu0145001_iastacceleratorgateway_mr:test
     pull_policy: never
     container_name: gonu0145001_iastacceleratorgateway_mr_new

@@ -16,10 +16,21 @@ help:
 	@echo "  make snapshot-load - Restaura el estado desde local_snapshot.tar.gz"
 
 up-all:
-	cd compose && docker compose up -d
+	@docker network create d2b-shared-network 2>/dev/null || true
+	$(MAKE) up-db
+	$(MAKE) up-kafka
+	$(MAKE) up-aws
+	$(MAKE) up-mq
+	$(MAKE) up-tools
+	$(MAKE) up-monitoring
 
 down-all:
-	cd compose && docker compose down
+	cd compose && docker compose -f compose-monitoring.yml down || true
+	cd compose && docker compose -f compose-tools.yml down || true
+	cd compose && docker compose -f compose-mq.yml down || true
+	cd compose && docker compose -f compose-aws.yml down || true
+	cd compose && docker compose -f compose-kafka.yml down || true
+	cd compose && docker compose -f compose-db.yml down || true
 
 up-db:
 	cd compose && docker compose -f compose-db.yml up -d

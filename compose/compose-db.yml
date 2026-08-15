@@ -3,7 +3,7 @@ name: "d2b-database"
 
 services:
   redis:
-    image: redis:latest
+    image: redis:8
     container_name: redis
     platform: linux/arm64
     ports:
@@ -12,9 +12,8 @@ services:
       - shared-network
 
   postgres:
-    image: postgres:latest
+    image: postgres:18
     container_name: postgres
-    platform: linux/amd64
     volumes:
       - ../postgres_data:/var/lib/postgresql/data
       - ../container-init/postgres:/docker-entrypoint-initdb.d
@@ -30,7 +29,7 @@ services:
       - shared-network
 
   mongo:
-    image: mongo
+    image: mongo:8
     container_name: mongo
     platform: linux/arm64
     environment:
@@ -42,7 +41,7 @@ services:
       - shared-network
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:1
     container_name: mongo-express
     platform: linux/arm64
     depends_on:
@@ -71,3 +70,4 @@ services:
 networks:
   shared-network:
     name: d2b-shared-network
+    external: true

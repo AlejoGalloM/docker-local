@@ -23,7 +23,6 @@ services:
   sftp:
     image: atmoz/sftp:latest
     container_name: sftp
-    platform: linux/amd64
     ports:
       - "2222:22"
     volumes:
@@ -37,3 +36,4 @@ services:
 networks:
   shared-network:
     name: d2b-shared-network
+    external: true
