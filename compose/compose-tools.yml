@@ -33,15 +33,6 @@ services:
     networks:
       - shared-network
 
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ../container-config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - shared-network
 
 networks:
   shared-network:

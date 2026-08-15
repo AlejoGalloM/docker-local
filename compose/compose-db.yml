@@ -67,6 +67,7 @@ services:
     networks:
       - shared-network
 
+
 networks:
   shared-network:
     name: d2b-shared-network

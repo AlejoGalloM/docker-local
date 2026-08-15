@@ -10,7 +10,10 @@ help:
 	@echo "  make up-kafka     - Levanta SOLO el ecosistema Kafka (Kafka, Zookeeper, Conduktor)"
 	@echo "  make up-aws       - Levanta SOLO AWS Emulators (Floci / LocalStack)"
 	@echo "  make up-mq        - Levanta SOLO IBM MQ y el Gateway"
-	@echo "  make up-tools     - Levanta SOLO herramientas extra (RabbitMQ, Mailhog, Prometheus, SFTP)"
+	@echo "  make up-tools     - Levanta SOLO herramientas extra (RabbitMQ, Mailhog, SFTP)"
+	@echo "  make up-monitoring - Levanta SOLO el stack de observabilidad (Prometheus, Grafana, Jaeger)"
+	@echo "  make snapshot-save - Crea un archivo local_snapshot.tar.gz con el estado de las BDs"
+	@echo "  make snapshot-load - Restaura el estado desde local_snapshot.tar.gz"
 
 up-all:
 	cd compose && docker compose up -d
@@ -32,3 +35,16 @@ up-mq:
 
 up-tools:
 	cd compose && docker compose -f compose-tools.yml up -d
+
+up-monitoring:
+	cd compose && docker compose -f compose-monitoring.yml up -d
+
+snapshot-save:
+	@echo "Creando snapshot de los datos locales..."
+	tar -czvf local_snapshot.tar.gz postgres_data/ floci_data/ dynamodb_data/ kafka-secrets/ container-init/ container-config/
+	@echo "✅ Snapshot guardado en local_snapshot.tar.gz"
+
+snapshot-load:
+	@echo "Restaurando snapshot..."
+	tar -xzvf local_snapshot.tar.gz
+	@echo "✅ Entorno restaurado exitosamente"
