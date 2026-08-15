@@ -16,7 +16,8 @@ services:
     container_name: postgres
     platform: linux/amd64
     volumes:
-      - ../LocalEnviroment/postgres-scripts:/docker-entrypoint-initdb.d
+      - ../postgres_data:/var/lib/postgresql/data
+      - ../container-init/postgres:/docker-entrypoint-initdb.d
       - ../postgres_data:/var/lib/postgresql
     environment:
       - POSTGRES_USER=postgres

@@ -1,3 +1,0 @@
-# resource user password
-#brokerKeystore::password ignore ${ACE_KEYSTORE_TRUSTSTORE_PASSWORD}
-brokerTruststore::password ignore ${ACE_KEYSTORE_TRUSTSTORE_PASSWORD}

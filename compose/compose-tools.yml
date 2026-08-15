@@ -27,7 +27,7 @@ services:
     ports:
       - "2222:22"
     volumes:
-      - ../sftp_keys:/home/sftpuser/.ssh/keys:ro
+      - ../container-config/sftp-server-keys:/home/sftpuser/.ssh/keys:ro
       - ../sftp_data:/home/sftpuser/upload
     command: sftpuser::1001
     networks:
@@ -39,7 +39,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ../prometheus.yml:/etc/prometheus/prometheus.yml
+      - ../container-config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - shared-network
 

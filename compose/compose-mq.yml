@@ -29,7 +29,7 @@ services:
       - "1414:1414"
       - "9443:9443"
     volumes:
-      - ../testEnvironment/mq/20-config.mqsc:/etc/mqm/20-config.mqsc:ro
+      - ../container-init/mq/20-config.mqsc:/etc/mqm/20-config.mqsc:ro
     networks:
       - scf_mqnu0145001_iastacceleratorgateway_mr
     restart: unless-stopped
