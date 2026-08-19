@@ -12,12 +12,11 @@ services:
       - shared-network
 
   postgres:
-    image: postgres:18
+    image: postgres:16
     container_name: postgres
     volumes:
       - ../postgres_data:/var/lib/postgresql/data
       - ../container-init/postgres:/docker-entrypoint-initdb.d
-      - ../postgres_data:/var/lib/postgresql
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
